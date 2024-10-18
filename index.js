@@ -12,19 +12,20 @@
 // sum(1,a) => “second parameter is not a number”
 // sum(1)(a) => “second parameter is not a number”
 
-function sum(par1, par2) {
-  if (par2 !== undefined) {
-    if (typeof par2 !== "number") {
+function sum(parameter1, parameter2) {
+  const part2Type = typeof parameter2;
+  if (parameter2 !== undefined) {
+    if (part2Type !== "number") {
       return "Second parameter is not a number";
     }
-    return par1 + par2;
+    return parameter1 + parameter2;
   }
 
-  return function (par2) {
-    if (typeof par2 !== "number") {
+  return function (parameter2) {
+    if (part2Type !== "number") {
       return "Second parameter is not a number";
     }
-    return par1 + par2;
+    return parameter1 + parameter2;
   };
 }
 
@@ -111,6 +112,7 @@ console.log(isAnagram("  DOrMYtoRy", "dirty room  "));
 
 function* generateSecurePassword(length) {
   //I found a more optimized way to do it but I have no idea how it works.
+  // https://gist.github.com/bendc/1e6af8f2d8027f2965da
   const lowerChars = "abcdefghijklmnopqrstuvwxyz";
   const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
@@ -119,7 +121,7 @@ function* generateSecurePassword(length) {
   if (length < 4) {
     return "It must have a minimum of 4 characters";
   }
-  
+
   const password = [
     lowerChars[Math.floor(Math.random() * lowerChars.length)],
     upperChars[Math.floor(Math.random() * upperChars.length)],
@@ -136,6 +138,12 @@ function* generateSecurePassword(length) {
     }
   }
 
+  for (let i = password.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [password[i], password[j]] = [password[j], password[i]];
+  }
+
+  return password.join("");
 }
 
 const passwordLength = 12;
