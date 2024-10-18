@@ -14,7 +14,7 @@
 
 function sum(parameter1, parameter2) {
   const isNumber = (parameter) => {
-    typeof parameter === "number";
+    return typeof parameter === "number";
   };
 
   if (isNumber(parameter1) && parameter2 === undefined) {
@@ -111,6 +111,8 @@ function isAnagram(str1, str2) {
 }
 
 console.log(isAnagram("  DOrMYtoRy", "dirty room  "));
+
+//  I think isAnagram using a helper function called withoutSpaces, which removes spaces and converts strings to lowercase with split and join. I checked if the lengths of the two strings were equal, since different lengths mean they can't be anagrams. I counted the characters in the second string using an object called count, where each character is a key, and its value is how many times it appears. For each character in the second string, I checked against this count. If a character wasn't found or didn't match the count, I returned false. If all characters matched, I returned true
 
 // 4) Escribir una funcion generadora de una contraseña segura. Debe recibir un numero y generar una contraseña de esa longitud que cumpla con las siguientes consignas:
 // Al menos una mayuscula
