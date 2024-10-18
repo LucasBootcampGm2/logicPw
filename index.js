@@ -14,10 +14,18 @@
 
 function sum(parameter1, parameter2) {
   const isNumber = (parameter) => {
-    return typeof parameter === "number";
+    return typeof parameter === "number" && !isNaN(parameter);
   };
 
   if (!isNumber(parameter1)) {
+    if (parameter2 === undefined) {
+      return function (parameter2) {
+        if (!isNumber(parameter2)) {
+          return "Second parameter is not a number either";
+        }
+        return "First parameter is not a number, but the second parameter is valid";
+      };
+    }
     return "First parameter is not a number";
   }
 
@@ -43,9 +51,9 @@ console.log(sum(1, 2));
 console.log(sum(1)(2));
 console.log(sum(1, a));
 console.log(sum(a, 1));
-// console.log(sum(a)(1));
-// console.log(sum(1)(a));
-// console.log(sum(a)(a));
+console.log(sum(a)(1));
+console.log(sum(1)(a));
+console.log(sum(a)(a));
 
 // I create a sum function that can recieve two numbers. It checks if the inputs are numbers and gives error messages if they are not. If only the first number is given, it returns another function to get the second number later. This makes it easy to use in different ways. The final version is simple and works well, even with mistakes in input.
 
@@ -124,7 +132,7 @@ console.log(isAnagram("  DOrMYtoRy", "dirty room  "));
 // Al menos un caracter especial
 // Debe retornar la contraseña generada
 
-function generateSecurePassword(length) {
+function* generateSecurePassword(length) {
   const lowerChars = "abcdefghijklmnopqrstuvwxyz";
   const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
@@ -136,7 +144,8 @@ function generateSecurePassword(length) {
   const specialCharsLength = specialChars.length;
 
   if (length < 4) {
-    return "It must have a minimum of 4 characters";
+    yield "It must have a minimum of 4 characters";
+    return;
   }
 
   const password = [
@@ -159,11 +168,23 @@ function generateSecurePassword(length) {
     [password[i], password[j]] = [password[j], password[i]];
   }
 
-  return password.join("");
+  for (let char of password) {
+    yield char;
+  }
 }
 
 const passwordLength = 12;
-const securePassword = generateSecurePassword(passwordLength);
-console.log(securePassword);
+const securePasswordGen = generateSecurePassword(passwordLength);
 
-// Al inicio se me habia creado una funcion generadora por un mal tipeo y no entendia de donde venia el error, ya que no lo utilize nunca y no lo via
+let generatedPassword = "";
+for (let char of securePasswordGen) {
+  generatedPassword += char;
+}
+
+console.log(generatedPassword);
+
+// I created a function called generateSecurePassword to generate a secure password of a specified length. It uses four character sets: lowercase letters, uppercase letters, numbers, and special characters. The function checks if the length is less than 4 and yields an error if it is.
+
+// It starts the password with one character from each set, fills the rest with random characters, and shuffles them. By using yield, it returns each character one at a time.
+
+// The main problem I faced was not realizing I had created a generator function, which confused me about how to get the final password. Once I understood generators, I was able to build the password by iterating over the yielded characters.
