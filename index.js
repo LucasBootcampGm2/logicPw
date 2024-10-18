@@ -17,6 +17,10 @@ function sum(parameter1, parameter2) {
     return typeof parameter === "number";
   };
 
+//   if (parameter1 === undefined && parameter2 === undefined) {
+//     return "Both parameters are undefined";
+//   }
+
   if (parameter1 === undefined) {
     return function (parameter2) {
       if (parameter2 === undefined) {
