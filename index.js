@@ -13,20 +13,28 @@
 // sum(1)(a) => “second parameter is not a number”
 
 function sum(parameter1, parameter2) {
-  const part2Type = typeof parameter2;
-  if (parameter2 !== undefined) {
-    if (part2Type !== "number") {
-      return "Second parameter is not a number";
-    }
-    return parameter1 + parameter2;
+  const isNumber = (parameter) => {
+    typeof parameter === "number";
+  };
+
+  if (isNumber(parameter1) && parameter2 === undefined) {
+    return function (parameter) {
+      if (!isNumber(parameter)) {
+        return "Second parameter is not a number";
+      }
+      return parameter1 + parameter;
+    };
   }
 
-  return function (parameter2) {
-    if (part2Type !== "number") {
-      return "Second parameter is not a number";
-    }
-    return parameter1 + parameter2;
-  };
+  if (!isNumber(parameter1)) {
+    return "First parameter is not a number";
+  }
+
+  if (!isNumber(parameter2)) {
+    return "Second parameter is not a number";
+  }
+
+  return parameter1 + parameter2;
 }
 
 const a = "Lucas";
@@ -35,6 +43,8 @@ console.log(sum(1, 2));
 console.log(sum(1)(2));
 console.log(sum(1, a));
 console.log(sum(1)(a));
+
+// I create a sum function that can recieve two numbers. It checks if the inputs are numbers and gives error messages if they are not. If only the first number is given, it returns another function to get the second number later. This makes it easy to use in different ways. The final version is simple and works well, even with mistakes in input.
 
 // 2) Dada una lista de usuarios con su historial de logueo. Escribir una funcion que determine si algun usuario fue logueado dentro de los ultimos 30 minutos
 //  La funcion debe recibir un parametro:
