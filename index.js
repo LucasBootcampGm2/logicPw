@@ -127,6 +127,15 @@ function* generateSecurePassword(length) {
     specialChars[Math.floor(Math.random() * specialChars.length)],
   ];
 
+  const allChars = lowerChars + upperChars + numbers + specialChars;
+
+  while (password.length < length) {
+    const randomChar = allChars[Math.floor(Math.random() * allChars.length)];
+    if (!password.includes(randomChar)) {
+      password.push(randomChar);
+    }
+  }
+
 }
 
 const passwordLength = 12;
