@@ -116,6 +116,17 @@ function* generateSecurePassword(length) {
   const numbers = "0123456789";
   const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?";
 
+  if (length < 4) {
+    return "It must have a minimum of 4 characters";
+  }
+  
+  const password = [
+    lowerChars[Math.floor(Math.random() * lowerChars.length)],
+    upperChars[Math.floor(Math.random() * upperChars.length)],
+    numbers[Math.floor(Math.random() * numbers.length)],
+    specialChars[Math.floor(Math.random() * specialChars.length)],
+  ];
+
 }
 
 const passwordLength = 12;
