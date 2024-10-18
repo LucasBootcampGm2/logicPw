@@ -133,6 +133,8 @@ console.log(isAnagram("  DOrMYtoRy", "dirty room  "));
 // Debe retornar la contraseña generada
 
 function* generateSecurePassword(length) {
+  // i found this form but i don't understand it so i didnt use it
+  // https://gist.github.com/bendc/1e6af8f2d8027f2965da
   const lowerChars = "abcdefghijklmnopqrstuvwxyz";
   const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
