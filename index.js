@@ -76,8 +76,7 @@ function loginLastThirty(arrayOfUsers, num) {
 }
 console.log(loginLastThirty(users, 30 * 60 * 1000));
 
-// https://stackoverflow.com/questions/10599148/how-do-i-get-the-current-time-only-in-javascript
-// Busque en esta pagina para ver bien lo del Date porque no entendia su funcionamiento
+// I used new Date() to get the curent time and calculated the difference in milliseconds. I did not understand how to use Date() but i found hlpful information on this page "https://stackoverflow.com/questions/10599148/how-do-i-get-the-current-time-only-in-javascript". The function uses the array method some() to check if any user in the list has a login_time within the last 30 minutes. 
 
 // 3) Escribir una funcion que determine si 2 strings son un anagrama
 // Ignorar espacios en los strings
