@@ -17,17 +17,17 @@ function sum(parameter1, parameter2) {
     return typeof parameter === "number";
   };
 
-  if (isNumber(parameter1) && parameter2 === undefined) {
-    return function (parameter) {
-      if (!isNumber(parameter)) {
-        return "Second parameter is not a number";
-      }
-      return parameter1 + parameter;
-    };
-  }
-
   if (!isNumber(parameter1)) {
     return "First parameter is not a number";
+  }
+
+  if (parameter2 === undefined) {
+    return function (parameter2) {
+      if (!isNumber(parameter2)) {
+        return "Second parameter is not a number";
+      }
+      return parameter1 + parameter2;
+    };
   }
 
   if (!isNumber(parameter2)) {
@@ -42,7 +42,10 @@ const a = "Lucas";
 console.log(sum(1, 2));
 console.log(sum(1)(2));
 console.log(sum(1, a));
-console.log(sum(1)(a));
+console.log(sum(a, 1));
+// console.log(sum(a)(1));
+// console.log(sum(1)(a));
+// console.log(sum(a)(a));
 
 // I create a sum function that can recieve two numbers. It checks if the inputs are numbers and gives error messages if they are not. If only the first number is given, it returns another function to get the second number later. This makes it easy to use in different ways. The final version is simple and works well, even with mistakes in input.
 
@@ -64,7 +67,7 @@ const users = [
   },
   {
     id: "3",
-    login_time: new Date("2024-10-18T09:40:51.01"),
+    login_time: new Date("2024-10-18T12:10:51.01"),
   },
 ];
 
@@ -76,7 +79,7 @@ function loginLastThirty(arrayOfUsers, num) {
 }
 console.log(loginLastThirty(users, 30 * 60 * 1000));
 
-// I used new Date() to get the curent time and calculated the difference in milliseconds. I did not understand how to use Date() but i found hlpful information on this page "https://stackoverflow.com/questions/10599148/how-do-i-get-the-current-time-only-in-javascript". The function uses the array method some() to check if any user in the list has a login_time within the last 30 minutes. 
+// I used new Date() to get the curent time and calculated the difference in milliseconds. I did not understand how to use Date() but i found hlpful information on this page "https://stackoverflow.com/questions/10599148/how-do-i-get-the-current-time-only-in-javascript". The function uses the array method some() to check if any user in the list has a login_time within the last 30 minutes.
 
 // 3) Escribir una funcion que determine si 2 strings son un anagrama
 // Ignorar espacios en los strings
@@ -121,32 +124,34 @@ console.log(isAnagram("  DOrMYtoRy", "dirty room  "));
 // Al menos un caracter especial
 // Debe retornar la contraseña generada
 
-function* generateSecurePassword(length) {
-  //I found a more optimized way to do it but I have no idea how it works.
-  // https://gist.github.com/bendc/1e6af8f2d8027f2965da
+function generateSecurePassword(length) {
   const lowerChars = "abcdefghijklmnopqrstuvwxyz";
   const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numbers = "0123456789";
   const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?";
+
+  const lowerCharsLength = lowerChars.length;
+  const upperCharsLength = upperChars.length;
+  const numbersLength = numbers.length;
+  const specialCharsLength = specialChars.length;
 
   if (length < 4) {
     return "It must have a minimum of 4 characters";
   }
 
   const password = [
-    lowerChars[Math.floor(Math.random() * lowerChars.length)],
-    upperChars[Math.floor(Math.random() * upperChars.length)],
-    numbers[Math.floor(Math.random() * numbers.length)],
-    specialChars[Math.floor(Math.random() * specialChars.length)],
+    lowerChars[Math.floor(Math.random() * lowerCharsLength)],
+    upperChars[Math.floor(Math.random() * upperCharsLength)],
+    numbers[Math.floor(Math.random() * numbersLength)],
+    specialChars[Math.floor(Math.random() * specialCharsLength)],
   ];
 
   const allChars = lowerChars + upperChars + numbers + specialChars;
+  const allCharsLength = allChars.length;
 
   while (password.length < length) {
-    const randomChar = allChars[Math.floor(Math.random() * allChars.length)];
-    if (!password.includes(randomChar)) {
-      password.push(randomChar);
-    }
+    const randomChar = allChars[Math.floor(Math.random() * allCharsLength)];
+    password.push(randomChar);
   }
 
   for (let i = password.length - 1; i > 0; i--) {
@@ -160,3 +165,5 @@ function* generateSecurePassword(length) {
 const passwordLength = 12;
 const securePassword = generateSecurePassword(passwordLength);
 console.log(securePassword);
+
+// Al inicio se me habia creado una funcion generadora por un mal tipeo y no entendia de donde venia el error, ya que no lo utilize nunca y no lo via
