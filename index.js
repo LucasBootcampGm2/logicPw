@@ -74,7 +74,7 @@ console.log(loginLastThirty(users, 30 * 60 * 1000));
 // Retornar true si es anagrama y false de lo contrario
 
 function isAnagram(str1, str2) {
-  const withoutSpaces = (str) => str.split(' ').join('').toLowerCase();
+  const withoutSpaces = (str) => str.split(" ").join("").toLowerCase();
 
   const string1 = withoutSpaces(str1);
   const string2 = withoutSpaces(str2);
@@ -102,10 +102,22 @@ function isAnagram(str1, str2) {
 
 console.log(isAnagram("  DOrMYtoRy", "dirty room  "));
 
-
 // 4) Escribir una funcion generadora de una contraseña segura. Debe recibir un numero y generar una contraseña de esa longitud que cumpla con las siguientes consignas:
 // Al menos una mayuscula
 // Al menos una minuscula
 // Al menos un numero
 // Al menos un caracter especial
 // Debe retornar la contraseña generada
+
+function* generateSecurePassword(length) {
+  //I found a more optimized way to do it but I have no idea how it works.
+  const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+  const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const numbers = "0123456789";
+  const specialChars = "!@#$%^&*()_+[]{}|;:,.<>?";
+
+}
+
+const passwordLength = 12;
+const securePassword = generateSecurePassword(passwordLength);
+console.log(securePassword);
